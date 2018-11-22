@@ -22,6 +22,7 @@ stakeholder goals StakeholderGoals : "Treadmill system stakeholder goals" for sy
 		rationale "The company developing the treadmill wants to make a profit and provide a low-priced product, so manufacturing costs should be minimized to entice customers and maximize margins."
 		stakeholder stakeholders.user1 stakeholders.user2 stakeholders.corp_ceo
 	]
+	//TODO: Remove this goal
 	goal g5 : "MinimizeFallingProbability" [
 		description "The user should be kept as safe from falling on the treadmill as possible."
 		rationale "It is safety-critical for the user who is moving on the treadmill to not fall during normal operation."
