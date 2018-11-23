@@ -1,0 +1,45 @@
+-- CSE 563 project by Arif Cerit & Rick Hanton
+
+package Treadmill_DataTypes
+public
+	with Base_Types;
+	with Data_Model;
+
+	-- 2D array of RGB pixels to display
+	data ScreenVisualData
+		properties
+			data_size => 300 KByte;
+			data_model::data_representation => array;
+			data_model::dimension => (2, 3);
+	end ScreenVisualData;
+	
+	-- 2D array of pixel position selected by user
+	data SelectionCoordinates
+		properties
+			Data_Model::Element_Names => ("x","y");
+			Data_Model::Data_Representation => Struct;
+	end SelectionCoordinates;
+	
+	-- date time for tracking current time
+	data DateTime
+	end DateTime;
+	
+	-- speed is used for selecting and displaying speed
+	data Speed extends base_types::Integer_16
+		properties
+			Data_Model::Measurement_Unit => "cm/s";
+	end Speed;
+	
+	-- elevation is used for selecting and displaying elevation data
+	data Elevation extends base_types::Integer_16
+		properties
+			Data_Model::Measurement_Unit => "1/10 Percent";
+	end Elevation;
+	
+	data CordPulled extends base_types::Boolean
+	end CordPulled;
+	
+	data SensorData
+	end SensorData;
+
+end Treadmill_DataTypes;
