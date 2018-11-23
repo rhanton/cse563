@@ -17,14 +17,13 @@ stakeholder goals StakeholderGoals : "Treadmill system stakeholder goals" for sy
 		rationale "It is safety-critical for the human user to be kept safe as the treadmill changes its physical configuration."
 		stakeholder stakeholders.corp_safety
 	]
-	goal g4 : "MinimizeCostOfManufacturing" [
+	goal g4 : "MinimizedCostOfManufacturing" [
 		description "The cost of manufacturing the exercise treadmill should be kept as low as possible."
 		rationale "The company developing the treadmill wants to make a profit and provide a low-priced product, so manufacturing costs should be minimized to entice customers and maximize margins."
 		stakeholder stakeholders.user1 stakeholders.user2 stakeholders.corp_ceo
 	]
-	//TODO: Remove this goal
-	goal g5 : "MinimizeFallingProbability" [
-		description "The user should be kept as safe from falling on the treadmill as possible."
+	goal g5 : "MinimizedFallingRisk" [
+		description "The user should be kept as safe from falling on the treadmill as possible. The probability and potential damage of falling should be minimal."
 		rationale "It is safety-critical for the user who is moving on the treadmill to not fall during normal operation."
 		stakeholder stakeholders.corp_safety
 	]
@@ -33,7 +32,7 @@ stakeholder goals StakeholderGoals : "Treadmill system stakeholder goals" for sy
 		rationale "The treadmill system should not pose a hazard to the user or others in the vicinity after a component failure has occurred."
 		stakeholder stakeholders.corp_safety
 	]
-	goal g7 : "KeepUserDataConfidential" [
+	goal g7 : "UserDataConfidential" [
 		description "The treadmill should ensure that data collected by it is anonymized and kept confidential."
 		rationale "The safety of data is critical in an internet-connected environment. Because data is stored in the cloud, internet security standards require that it be encrypted in-transit and at-rest."
 		stakeholder stakeholders.corp_security stakeholders.corp_ceo
