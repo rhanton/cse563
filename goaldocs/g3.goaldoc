@@ -45,6 +45,7 @@ document goaldoc_3 : "Stakeholder goals G3" [
 			description ""
 			rationale ""
 			refines g3
+			conflicts with goaldoc_1.g1_3
 			category Type.Soft
 		]
 ]
