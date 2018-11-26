@@ -1,0 +1,190 @@
+-- CSE 563 project by Arif Cerit & Rick Hanton
+
+package Treadmill
+public
+	with Treadmill_DataTypes;
+	renames Treadmill_DataTypes::all;
+	
+	system treadmill
+	end treadmill;
+	
+	system implementation treadmill.impl
+	subcomponents
+		ui : device user_interface.impl;
+		controller : system treadmill_controller.impl;
+		network : device network_adapter.impl;
+		safety_cord : device safety_cord.impl;
+		drive_sys: system drive_system.impl;
+	connections
+		uss : port ui.speed_selection -> controller.speed_input;
+		ues : port ui.elevation_selection -> controller.elevation_input;
+		nic_in : port network.network_in -> controller.network_in;
+		nic_out : port controller.network_out -> network.network_out;
+		safe_in : port safety_cord.error_signal -> controller.error_signal;
+		ds: port controller.speed_output -> drive_sys.speed_input;
+		de: port controller.elevation_output -> drive_sys.elevation_input;	
+	end treadmill.impl;
+	
+	-- Treadmill Controller
+	system treadmill_controller
+	features
+		speed_input: in data port Speed;
+		elevation_input: in data port Elevation;
+		speed_output: out data port Speed;
+		elevation_output: out data port Elevation;
+		network_in: in data port;
+		network_out: out data port;
+		error_signal: in data port CordPulled;
+	end treadmill_controller;
+	
+	system implementation treadmill_controller.impl
+	subcomponents
+		set_speed: process set_speed.impl;
+		set_elevation: process set_elevation.impl;
+	connections
+		css: port speed_input -> set_speed.desired_speed;
+		cse: port elevation_input -> set_elevation.desired_elevation;
+		cos: port set_speed.output_speed -> speed_output;
+		coe: port set_elevation.output_elevation -> elevation_output;
+	end treadmill_controller.impl;
+	
+	-- (Treadmill Controller) Set speed and elevation processes
+	process set_speed
+	features
+		desired_speed: in data port Speed;
+		output_speed: out data port Speed;
+	end set_speed;
+	
+	process implementation set_speed.impl
+		subcomponents
+			manage_speed_change: thread manage_speed_change.impl;
+		connections
+			ssds: port desired_speed -> manage_speed_change.desired_speed;
+			ssos: port manage_speed_change.output_speed -> output_speed;
+	end set_speed.impl;
+	
+	process set_elevation
+	features
+		desired_elevation: in data port Elevation;
+		output_elevation: out data port Elevation;
+	end set_elevation;
+	
+	process implementation set_elevation.impl
+		subcomponents
+			manage_elevation_change: thread manage_elevation_change.impl;
+		connections
+			sede: port desired_elevation -> manage_elevation_change.desired_elevation;
+			seoe: port manage_elevation_change.output_elevation -> output_elevation;
+	end set_elevation.impl;
+	
+	-- (Treadmill Controller) Manage speed and elevation threads
+	thread manage_speed_change
+		features
+			desired_speed: in data port Speed;
+			output_speed: out data port Speed;
+	end manage_speed_change;
+	
+	thread implementation manage_speed_change.impl
+	end manage_speed_change.impl;
+	
+	thread manage_elevation_change
+		features
+			desired_elevation: in data port Elevation;
+			output_elevation: out data port Elevation;
+	end manage_elevation_change;
+	
+	thread implementation manage_elevation_change.impl
+	end manage_elevation_change.impl;
+
+	-- User Interface
+	device user_interface
+	features
+		speed_selection: out data port Speed;
+		elevation_selection: out data port Elevation;
+	end user_interface;
+	
+	device implementation user_interface.impl
+	end user_interface.impl;
+	
+	device network_adapter
+		features
+			wan_in: in data port;
+			wan_out: out data port;
+			network_in: out data port;
+			network_out: in data port;
+	end network_adapter;
+	
+	device implementation network_adapter.impl
+	end network_adapter.impl;
+
+	device safety_cord
+		features
+			error_signal: out data port CordPulled;
+		properties
+			Latency => 2ms .. 3ms;
+	end safety_cord;
+	
+	device implementation safety_cord.impl
+	end safety_cord.impl;
+	
+	system drive_system
+	features
+		speed_input: in data port Speed;
+		elevation_input: in data port Elevation;
+	end drive_system;
+	
+	system implementation drive_system.impl
+	subcomponents
+		belt_pwm_controller: device DrivePWMController;
+		belt_motor: device DriveMotor;
+--		elevation_motor: device ElevationMotor;
+--		speed_sensor: device BeltSpeedSensor;
+	end drive_system.impl;
+	
+--	-- sensor to sense current belt speed
+--	device BeltSpeedSensor
+--		features
+--			sensor_signal: out data port SensorData;
+--		flows
+--			sensor_read: flow source sensor_signal;
+--		properties
+--			Period => 25 ms;
+--			Dispatch_Protocol => Periodic;
+--			Latency => 5 ms .. 10 ms applies to sensor_read;
+--	end BeltSpeedSensor;
+--	
+	device DrivePWMController
+		
+	end DrivePWMController;
+
+	device DriveMotor
+		
+	end DriveMotor;
+--
+--	device ElevationMotor
+----		features
+----			SM_Command_Signals: feature group SM_Command_Signals;
+----			Mechanical_Control_Position: out feature; --data port SM_Position.PercentOpen;
+----		flows
+----			flowsink: flow sink SM_Command_Signals {Latency => 1ms .. 1ms;};
+----		properties
+----			Dispatch_Protocol => Aperiodic;
+----		annex EMV2 {**
+----			use types Treadmill_ErrorTypes;
+----			
+----			error propagations
+----				SM_Command_Signals.SM_Cmd: in propagation {MissingStepCommand, NoCommandSequence, SlowResponse};
+----				SM_Command_Signals.SM_Cmd: not in propagation {DelayedResponse};
+----				SM_Command_Signals.Step_Completion: not out propagation {CompletionSignalOmission};
+----				Mechanical_Control_Position: out propagation {MissedStep, NoSteps, SlowResponse};
+----				Mechanical_Control_Position: not out propagation {DelayedResponse};
+----			flows
+----				EMfailure: error source Mechanical_Control_Position {NoService} when {StepperMotorFailure};
+----				cmdimpact1: error path SM_Command_Signals.SM_Cmd {MissingStepCommand} -> Mechanical_Control_Position {MissedStep};
+----				cmdimpact2: error path SM_Command_Signals.SM_Cmd {NoCommandSequence} -> Mechanical_Control_Position {NoService};
+----				cmdlate1: error path SM_Command_Signals.SM_Cmd {SlowResponse} -> Mechanical_Control_Position {SlowResponse};
+----			end propagations;
+----		**};
+--	end ElevationMotor;
+	
+end Treadmill;
