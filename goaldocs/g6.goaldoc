@@ -1,4 +1,4 @@
-document goaldoc_6 [
+document goaldoc_6: "Stakeholder goals G6" [
 	goal g6: "UserDataConfidential" [
 		description "The treadmill should ensure that data collected by it is anonymized and kept confidential."
 		rationale "The safety of data is critical in an internet-connected environment. Because data is stored in the cloud, internet security standards require that it be encrypted in-transit and at-rest."
@@ -6,58 +6,58 @@ document goaldoc_6 [
 		conflicts with goaldoc_4.g4_1
 		category Type.Maintain
 	]
-		goal g6_1: "SafeWebConnectionToCloudStorage" [
-			description ""
-			rationale ""
+		goal g6_1: "SafeWebConnectionToWebServices" [
+			description "The system shall establish a safe web connection to external web services."
+			rationale "The confidentiality of data sent over the internet highly depends on safe connections between services."
 			refines g6
 			category Type.Maintain
 		]
 			goal g6_1_1: "SafeWebConnection" [
-				description ""
-				rationale ""
+				description "The system shall connect to the web safely."
+				rationale "It is necessary to have safe connections to external services."
 				refines g6_1
 				category Type.Achieve
 			]
 				goal g6_1_1_1: "SecurelyTunneledWebConnection" [
-					description ""
-					rationale ""
+					description "The system shall tunnel web connections through a secure network."
+					rationale "One way to establish safe connections in the web is to tunnel through a network which is assumed to be safe."
 					refines g6_1_1
 					category Type.Achieve
 				]
 				goal g6_1_1_2: "EncryptedWebConnection" [
-					description ""
-					rationale ""
+					description "The system shall encrypt the traffic sent in a web connection."
+					rationale "An alternative to ensure safe web connections is to encrypt all data sent during a web connection."
 					refines g6_1_1
 					category Type.Achieve
 				]
-			goal g6_1_2: "ConnectionToCloudStorage" [
-				description ""
-				rationale ""
+			goal g6_1_2: "ConnectionToWebServies" [
+				description "The system shall be able to connect to web services."
+				rationale "The system needs an interface to the web."
 				refines g6_1
 				conflicts with g6_2
 				category Type.Achieve
 			]
 		goal g6_2: "SecuredUserDataStorage" [
-			description ""
-			rationale ""
+			description "The system shall secure the storage containing the user data."
+			rationale "To ensure that user data is kept confidential, the system must secure the storage."
 			refines g6
 			category Type.Achieve
 		]
 			goal g6_2_1: "SafeDataAccess" [
-				description ""
-				rationale ""
+				description "The system shall establish a safe way to access the user data."
+				rationale "The access to user data itself must be safe."
 				refines g6_2
 				category Type.Achieve
 			]
 			goal g6_2_2: "EncryptedUserData" [
-				description ""
-				rationale ""
+				description "The system shall encrypt user data."
+				rationale "The data in the storage might also be secured using encryption of the content."
 				refines g6_2
 				category Type.Maintain
 			]
 		goal g6_3: "AnonymizedUserTrainingData" [
-			description ""
-			rationale ""
+			description "The system shall anonymize user data collected during training."
+			rationale "The confidentiality of user data can additionally be ensured with anonymized data only identified by the assignment to a specific user identifier."
 			refines g6
 			category Type.Achieve
 		]

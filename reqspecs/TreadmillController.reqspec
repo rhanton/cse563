@@ -1,25 +1,21 @@
 system requirements TreadmillControllerReqs for Treadmill::treadmill_controller [
 	requirement req_tc_1: "Apply speed settings to belt actuator" [
-		description ""
-		rationale ""
+		description "The received speed setting must be processed and forwarded to the responsible belt actuator."
 		see goal goaldoc_1.g1_1_1
 		category Kind.Guarantee
 	]
 	requirement req_tc_2: "Monitoring of training data" [
-		description ""
-		rationale ""
+		description "The data produced by the sensors must be monitored by the treadmill controller."
 		see goal goaldoc_2.g2_1
 		category Kind.Constraint
 	]
 	requirement req_tc_3: "Recording of monitored metrics" [
-		description ""
-		rationale ""
+		description "The monitored sensor data must be recorded to be available for user information."
 		see goal goaldoc_2.g2_2
 		category Kind.Constraint
 	]
 	requirement req_tc_4: "Initiate reboot procedure" [
-		description ""
-		rationale ""
+		description "The treadmill controller must be able to activate the reboot procedure."
 		see goal goaldoc_5.g5_2_1
 		category Kind.Safety
 	]

@@ -1,4 +1,4 @@
-document goaldoc_5 [
+document goaldoc_5: "Stakeholder goals G5" [
 	goal g5: "SafeStateOnFailure" [
 		description "The treadmill should transition into a safe state if a failure in any component should occur."
 		rationale "The treadmill system should not pose a hazard to the user or others in the vicinity after a component failure has occurred."
@@ -6,38 +6,38 @@ document goaldoc_5 [
 		category Type.Maintain
 	]
 		goal g5_1: "MechanicSafeStateComponents" [
-			description ""
-			rationale ""
+			description "The system shall ensure that the mechanical components are in a safe state in case of a failure."
+			rationale "A safe system state on failure requires the mechanical components to be safe."
 			refines g5
 			category Type.Achieve
 		]
-			goal g5_1_1: "EndProgram" [
-				description ""
-				rationale ""
+			goal g5_1_1: "EndProgram If UIFailure" [
+				description "The system shall ensure that the program is ended when the user interface display fails."
+				rationale "The user interface displays important information to the user. If it fails, the safest state of the treadmill is to stop the training."
 				refines g5_1
 				category Type.Achieve
 			]
-			goal g5_1_2: "EmergencyStop" [
-				description ""
-				rationale ""
+			goal g5_1_2: "EmergencyStop If SafetyCordFailure OR SoftwareFailure" [
+				description "The system shall ensure that the treadmill is stopped immediately if the safety cord of software fails."
+				rationale "The safety cord and software are essential for safety. If one of them fails, the treadmill must be stopped immidiately to prevent hazards."
 				refines g5_1 g5_2
 				category Type.Achieve
 			]
-			goal g5_1_3: "MechanicSafeStateComponentsAssumption" [
-				description ""
-				rationale ""
+			goal g5_1_3: "If EmergencyStop OR EndProgram Then MechanicSafeStateComponents" [
+				description "It is assumed that emergency stops and program cancellations ensure the safe state of the mechanic components."
+				rationale "If the failure of a mechanic components always leads ot either an emergency stop or the end of a program, then safety is provided."
 				refines g5_1
 				category Kind.Assumption
 			]
 		goal g5_2: "SoftwareSafeState" [
-			description ""
-			rationale ""
+			description "The system shall ensure that the software is in a safe state in case of a failure."
+			rationale "A safe system state on failure requires the software partof the system to be safe in case of a failure."
 			refines g5
 			category Type.Achieve
 		]
 			goal g5_2_1: "RebootProcedureInitiated" [
-				description ""
-				rationale ""
+				description "The system shall ensure that reboot is initiated when the software fails."
+				rationale "The safest way for the software part to minimize hazard is to reboot the system. Otherwise, invalid inputs or outputs could cause harm to the user."
 				refines g5_2
 				category Type.Achieve
 			]

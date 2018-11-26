@@ -1,4 +1,4 @@
-document goaldoc_1: "Stakeholder goals G1"[
+document goaldoc_1: "Stakeholder goals G1" [
 	//description "The stakeholder goals in this section refer to the goal g1."
 	goal g1 : "StartAndOperateAtDesiredSpeed" [
 		description "The User should be able to start and operate the treadmill at a speed of his or her choosing."
@@ -6,7 +6,7 @@ document goaldoc_1: "Stakeholder goals G1"[
 		stakeholder stakeholders.user_professional stakeholders.user_hobby
 		category Type.Achieve
 	]
-		goal g1_1: "DesiredSpeedExecuted" [
+		goal g1_1: "DesiredSpeedExecuted If SpeedValid" [
 			description "The system shall executed the desired speed specified by the user."
 			rationale "In order to satisfy the user-specified speed the system should take the desired speed input."
 			refines g1
@@ -19,20 +19,20 @@ document goaldoc_1: "Stakeholder goals G1"[
 				category Type.Achieve
 			]
 			goal g1_1_2: "UserSpeedInputRegistered" [
-				description ""
-				rationale ""
+				description "The speed input of the user shall be registered by the system."
+				rationale "It is crucial to capture each speed input of the user to react to operational changes."
 				refines g1_1
 				category Type.Achieve
 			]
-		goal g1_2: "DeclineInput" [
-			description ""
-			rationale ""
+		goal g1_2: "DeclineInput If Not SpeedValid" [
+			description "The system shall not accept invalid inputs from the user."
+			rationale "The speed input has predefined boundaries which must be followed in order to operate properly."
 			refines g1
 			category Type.Achieve
 		]
 		goal g1_3: "SpeedSpecifiedByUser" [
-			description ""
-			rationale ""
+			description "The desired speed must be inserted by the user."
+			rationale "The desired speed is being produced in the user interface and passed to other computing components from there."
 			refines g1
 			category Type.Achieve
 		]

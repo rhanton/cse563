@@ -1,4 +1,4 @@
-document goaldoc_2: "Stakeholder goals G2"[
+document goaldoc_2: "Stakeholder goals G2" [
 	goal g2: "TrackAndRecordUserDataFromTraining" [
 		description "The treadmill should be able to track and record data about each use for later review."
 		rationale "A major functionality being added to the treadmill system is the ability to record session data for later review."
@@ -6,38 +6,38 @@ document goaldoc_2: "Stakeholder goals G2"[
 		category Type.Achieve
 	]
 		goal g2_1: "MonitorMetricsFromTraining" [
-			description ""
-			rationale ""
+			description "The system shall take the data produced during training and monitor the metrics."
+			rationale "Monitoring metrics of the training allows for more effective training for both hobby users and professional runners."
 			refines g2
 			category Type.Achieve
 		]
 		goal g2_2: "RecordFromMonitoredMetrics" [
-			description ""
-			rationale ""
+			description "The system shall record the monitored metrics to a storage."
+			rationale "To ensure availability of monitored data, it must be stored."
 			refines g2
 			category Type.Achieve
 		]
 		goal g2_3: "UserUniquelyIdentified" [
-			description ""
-			rationale ""
+			description "The system shall identify each user in the system uniquely."
+			rationale "The mapping from users to training sessions or training data requires an unique identifier."
 			refines g2
 			category Type.Achieve
 		]
 			goal g2_3_1: "UserCredentialsCorrectlyEntered" [
-				description ""
-				rationale ""
+				description "The system shall ensure that user credentials are entered correctly."
+				rationale "In order to uniquely identify, a credential check is necessary."
 				refines g2_3
 				category Type.Achieve
 			]
-			goal g2_3_2: "UserIdentifierQueried" [
-				description ""
-				rationale ""
+			goal g2_3_2: "UserIdentifierQueried If LoggedIn" [
+				description "The system shall query the access control the user identifier."
+				rationale "The user identifier is used to uniquely assign training data to a user."
 				refines g2_3
 				category Type.Achieve
 			]
-			goal g2_3_3: "UserRegistrationEncouraged" [
-				description ""
-				rationale ""
+			goal g2_3_3: "UserRegistrationEncouraged If Not LoggedIn" [
+				description "The system shall initiate the user registration for first-time users."
+				rationale "The tracking and recording of user data only works for registered users."
 				refines g2_3
 				category Type.Achieve
 			]
