@@ -1,5 +1,6 @@
 system requirements TreadmillControllerReqs for Treadmill::treadmill_controller [
-	requirement req_tc_1: "Apply speed settings to belt actuator" [
+	description "System requirements for the Treadmill Controller component of the Treadmill."
+	requirement req_tc_1: "Apply speed settings to belt actuator" for speed_output[
 		description "The received speed setting must be processed and forwarded to the responsible belt actuator."
 		see goal goaldoc_1.g1_1_1
 		category Kind.Guarantee
@@ -19,4 +20,6 @@ system requirements TreadmillControllerReqs for Treadmill::treadmill_controller 
 		see goal goaldoc_5.g5_2_1
 		category Kind.Safety
 	]
+	
+	include GlobalReq.globalreq_1
 ]

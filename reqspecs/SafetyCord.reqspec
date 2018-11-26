@@ -1,7 +1,10 @@
 system requirements SafetyCordReqs for Treadmill::safety_cord [
+	description "System requirements for the Safety Cord component of the Treadmill."
 	requirement req_sc_1: "Send emergency stop signal" [
 		description "The safety cord must be able to send an emergency stop signal once it is activated."
 		see goal goaldoc_5.g5_1_2
 		category Kind.Safety
 	]
+	
+	include GlobalReq.globalreq_1
 ]

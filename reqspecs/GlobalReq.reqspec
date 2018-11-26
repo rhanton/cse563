@@ -1,3 +1,8 @@
 global requirements GlobalReq [
-	requirement globalreq_1: "Bla" []
+	requirement globalreq_1: "Important components are connected redundantly" [
+		description "The core components (treadmill controller, drive system, user interface, actuators, sensors, safety cord) must have redundant physical connections."
+		rationale "Connection redundancy is a way to decrease the risk of disconnection during operations due to mechanical or electrical failures. Between two components there must exist an alternative path."
+		category Kind.Safety
+		development stakeholder stakeholders.corp_safety
+	]
 ]

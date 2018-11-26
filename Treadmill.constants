@@ -1,0 +1,4 @@
+constants authors [
+	val encryptionMechanism = "AES256"
+	val operationMode = "Eco"
+]

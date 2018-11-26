@@ -1,6 +1,6 @@
 system requirements UserInterfaceReqs for Treadmill::user_interface [
 	description "System requirements for the User Interface component of the Treadmill."
-	requirement req_ui_1: "Register speed input" [
+	requirement req_ui_1: "Register speed input" for speed_selection [
 		description "Receiving and processing the speed input from the user."
 		see goal goaldoc_1.g1_1_2
 		category Kind.Constraint
@@ -10,7 +10,7 @@ system requirements UserInterfaceReqs for Treadmill::user_interface [
 		see goal goaldoc_1.g1_2
 		category Kind.Safety
 	]
-	requirement req_ui_3: "User-specified speed required" [
+	requirement req_ui_3: "User-specified speed required" for display_data [
 		description "The user interface allows for user-specified speed."
 		see goal goaldoc_1.g1_3
 		category Kind.Guarantee
@@ -25,7 +25,7 @@ system requirements UserInterfaceReqs for Treadmill::user_interface [
 		see goal goaldoc_2.g2_3_2
 		category Kind.Constraint
 	]
-	requirement req_ui_6: "Encourage user registration process" [
+	requirement req_ui_6: "Encourage user registration process" for display_data [
 		description "The user registration process is offered for not-registered users."
 		see goal goaldoc_2.g2_3_3
 		category Kind.Constraint
@@ -45,4 +45,6 @@ system requirements UserInterfaceReqs for Treadmill::user_interface [
 		see goal goaldoc_5.g5_1_1
 		category Kind.Safety
 	]
+	
+	include GlobalReq.globalreq_1
 ]

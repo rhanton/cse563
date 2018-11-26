@@ -1,15 +1,18 @@
-system requirements NetworkAdapter for Treadmill::network_adapter [
+system requirements NetworkAdapter for Treadmill::network_adapter 
+use constants authors
+[
+	description "System requirements for the Network Adapter component of the Treadmill."
 	requirement req_na_1: "Tunnel web connection through safe network" [
 		description "The web connection established by the network adapter must be led through a secured network."
 		see goal goaldoc_6.g6_1_1_1
 		category Kind.Safety
 	]
-	requirement req_na_2: "Encrypt web connection" [
+	requirement req_na_2: "Encrypt web connection" for network_out [
 		description "The traffic of the web connection must be encrypted before being sent by the network adapter."
 		see goal goaldoc_6.g6_1_1_2
 		category Kind.Safety
 	]
-	requirement req_na_3: "Establish connection to external services." [
+	requirement req_na_3: "Establish connection to external services" [
 		description "The network adapter established connection to known external services."
 		see goal goaldoc_6.g6_1_2
 		category Kind.Constraint

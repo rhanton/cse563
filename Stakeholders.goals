@@ -1,0 +1,47 @@
+// CSE 563 project by Arif Cerit & Rick Hanton
+stakeholder goals StakeholderGoals : "Treadmill system stakeholder goal set" for system [
+	description "This document contains the stakeholder goal set for the Treadmill System."
+	goal g1 : "StartAndOperateAtDesiredSpeed" [
+		description "The User should be able to start and operate the treadmill at a speed of his or her choosing."
+		rationale "The core functionality of the treadmill is an ability to move the belt at a given speed. The user wishes to choose this speed as-desired."
+		stakeholder stakeholders.user_professional stakeholders.user_hobby
+		category Type.Achieve
+		see goal goaldoc_1.g1
+	]
+	goal g2: "TrackAndRecordUserDataFromTraining" [
+		description "The treadmill should be able to track and record data about each use for later review."
+		rationale "A major functionality being added to the treadmill system is the ability to record session data for later review."
+		stakeholder stakeholders.user_professional stakeholders.user_hobby
+		category Type.Achieve
+		see goal goaldoc_2.g2
+	]
+	goal g3: "SafetyDuringOperationChanges" [
+		description "The treadmill should keep the user in a safe state as the user makes speed and elevation adjustments and changes."
+		rationale "It is safety-critical for the human user to be kept safe as the treadmill changes its physical configuration."
+		stakeholder stakeholders.corp_safety
+		category Type.Achieve
+		see goal goaldoc_3.g3
+	]
+	goal g4: "MinimizedCostOfManufacturing" [
+		description "The cost of manufacturing the exercise treadmill should be kept as low as possible."
+		rationale "The company developing the treadmill wants to make a profit and provide a low-priced product, so manufacturing costs should be minimized to entice customers and maximize margins."
+		stakeholder stakeholders.user_professional stakeholders.user_hobby stakeholders.corp_ceo
+		category Type.Soft
+		see goal goaldoc_4.g4
+	]
+	goal g5: "SafeStateOnFailure" [
+		description "The treadmill should transition into a safe state if a failure in any component should occur."
+		rationale "The treadmill system should not pose a hazard to the user or others in the vicinity after a component failure has occurred."
+		stakeholder stakeholders.corp_safety
+		category Type.Maintain
+		see goal goaldoc_5.g5
+	]
+	goal g6: "UserDataConfidential" [
+		description "The treadmill should ensure that data collected by it is anonymized and kept confidential."
+		rationale "The safety of data is critical in an internet-connected environment. Because data is stored in the cloud, internet security standards require that it be encrypted in-transit and at-rest."
+		stakeholder stakeholders.corp_security stakeholders.corp_ceo
+		conflicts with goaldoc_4.g4_1
+		category Type.Maintain
+		see goal goaldoc_6.g6
+	]
+]
