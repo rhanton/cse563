@@ -1,0 +1,26 @@
+-- CSE 563 project by Arif Cerit & Rick Hanton
+
+package Treadmill_PowerSupply
+public
+	-- Power Supply provides power to various components through a power bus
+	bus Power_Supply
+		annex EMV2 {**
+			use types Treadmill_ErrorTypes;
+			
+			error propagations
+				access: out propagation {PowerLoss};
+			flows
+				powerfail: error source access {PowerLoss} when {PowerFailure};
+			end propagations;
+		**};
+	end Power_Supply;
+
+	bus implementation Power_Supply.Volt120
+	end Power_Supply.Volt120;
+
+	bus implementation Power_Supply.Volt12
+	end Power_Supply.Volt12;
+	
+	bus implementation Power_Supply.Volt3
+	end Power_Supply.Volt3;
+end Treadmill_PowerSupply;
