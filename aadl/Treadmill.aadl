@@ -4,12 +4,15 @@ package Treadmill
 public
 	with Treadmill_DataTypes;
 	renames Treadmill_DataTypes::all;
+	with Treadmill_PowerSupply;
+	renames Treadmill_PowerSupply::all;
 	
 	system treadmill
 		features
 			-- external network I/O
 			wan_in: in data port;
 			wan_out: out data port;
+			power_bus: requires bus access Power_Supply;
 	end treadmill;
 	
 	system implementation treadmill.impl
@@ -23,6 +26,7 @@ public
 		connections
 			uss : port ui.speed_selection -> controller.speed_input;
 			ues : port ui.elevation_selection -> controller.elevation_input;
+			udd : port controller.display_data -> ui.display_data;
 			nic_in : port network.network_in -> controller.network_in;
 			nic_out : port controller.network_out -> network.network_out;
 			inet_in : port wan_in -> network.wan_in;
@@ -32,6 +36,13 @@ public
 			dei: port controller.elevation_output -> elevation_motor.input;
 			dso: port drive_sys.speed_output -> controller.speed_state;
 			deo: port elevation_motor.state -> controller.elevation_state;
+			
+			pbaccess1: bus access power_bus -> ui.power_12V;
+			pbaccess2: bus access power_bus -> network.power_3V;
+			pbaccess3: bus access power_bus -> safety_cord.power_3V;
+			pbaccess4: bus access power_bus -> drive_sys.power_bus;
+			pbaccess5: bus access power_bus -> elevation_motor.power_12V;
+			pbaccess6: bus access power_bus -> controller.power_12V;
 	end treadmill.impl;
 	
 	-- Treadmill Controller
@@ -43,9 +54,12 @@ public
 			elevation_output: out data port Elevation;
 			speed_state: in data port SensorData;
 			elevation_state: in data port Elevation;
+			display_data: out data port ScreenVisualData;
 			network_in: in data port;
 			network_out: out data port;
 			error_signal: in data port CordPulled;
+			
+			power_12V: requires bus access Power_Supply.Volt12;
 	end treadmill_controller;
 	
 	system implementation treadmill_controller.impl
@@ -112,6 +126,8 @@ public
 	features
 		speed_selection: out data port Speed;
 		elevation_selection: out data port Elevation;
+		display_data: in data port ScreenVisualData;
+		power_12V: requires bus access Power_Supply.Volt12;
 	end user_interface;
 	
 	device implementation user_interface.impl
@@ -123,6 +139,7 @@ public
 			wan_out: out data port;
 			network_in: out data port;
 			network_out: in data port;
+			power_3V: requires bus access Power_Supply.Volt3;
 	end network_adapter;
 	
 	device implementation network_adapter.impl
@@ -131,6 +148,7 @@ public
 	device safety_cord
 		features
 			error_signal: out data port CordPulled;
+			power_3V: requires bus access Power_Supply.Volt3;
 		properties
 			Latency => 2ms .. 3ms;
 	end safety_cord;
@@ -141,27 +159,30 @@ public
 	system drive_system
 		features
 			speed_input: in data port Speed;
---			elevation_input: in data port Elevation;
 			speed_output: out data port SensorData;
---			elevation_position: out data port Elevation;
+			power_bus: requires bus access Power_Supply;
 	end drive_system;
 	
 	system implementation drive_system.impl
 		subcomponents
 			pwm_controller: device drive_pwm_controller.impl;
 			motor: device drive_motor.impl;
---			elev_motor: device elevation_motor.impl;
 			speed_sensor: device belt_speed_sensor.impl;
 		connections
 			speed_set : port speed_input -> pwm_controller.speed_input;
 			speed_actual : port speed_sensor.sensor_signal -> speed_output;
 			pwm_set : port pwm_controller.pwm_output -> motor.pwm_input;
+			
+			pbaccess1: bus access power_bus -> pwm_controller.power;
+			pbaccess2: bus access power_bus -> motor.power;
+			pbaccess3: bus access power_bus -> speed_sensor.power;
 	end drive_system.impl;
 	
 	-- sensor to sense current belt speed
 	device belt_speed_sensor
 		features
 			sensor_signal: out data port SensorData;
+			power: requires bus access Power_Supply.Volt3;
 		flows
 			sensor_read: flow source sensor_signal;
 		properties
@@ -178,6 +199,7 @@ public
 		features
 			speed_input: in data port Speed;
 			pwm_output: out data port;
+			power: requires bus access Power_Supply.Volt3;
 	end drive_pwm_controller;
 	
 	device implementation drive_pwm_controller.impl
@@ -187,6 +209,7 @@ public
 	device drive_motor
 		features
 			pwm_input: in data port;
+			power: requires bus access Power_Supply.Volt120;
 	end drive_motor;
 	
 	device implementation drive_motor.impl
@@ -197,6 +220,7 @@ public
 		features
 			input: in data port Elevation;
 			state: out data port Elevation;
+			power_12V: requires bus access Power_Supply.Volt12;
 --		features
 --			SM_Command_Signals: feature group SM_Command_Signals;
 --			Mechanical_Control_Position: out feature; --data port SM_Position.PercentOpen;
