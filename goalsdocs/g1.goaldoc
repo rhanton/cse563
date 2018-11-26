@@ -1,0 +1,11 @@
+document g1_goals [
+	goal DesiredSpeedExecuted [
+		refines StakeholderGoals.g1
+	]
+		goal SpeedSettingsAppliedToBelt [
+			refines DesiredSpeedExecuted
+		]
+		goal UserSpeedInputRegistered []
+	goal DeclineInput []
+	goal SpeedSpecifiedByUser []
+]
