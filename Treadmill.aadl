@@ -6,53 +6,64 @@ public
 	renames Treadmill_DataTypes::all;
 	
 	system treadmill
+		features
+			-- network I/O
+			wan_in: in data port;
+			wan_out: out data port;
 	end treadmill;
 	
 	system implementation treadmill.impl
-	subcomponents
-		ui : device user_interface.impl;
-		controller : system treadmill_controller.impl;
-		network : device network_adapter.impl;
-		safety_cord : device safety_cord.impl;
-		drive_sys: system drive_system.impl;
-	connections
-		uss : port ui.speed_selection -> controller.speed_input;
-		ues : port ui.elevation_selection -> controller.elevation_input;
-		nic_in : port network.network_in -> controller.network_in;
-		nic_out : port controller.network_out -> network.network_out;
-		safe_in : port safety_cord.error_signal -> controller.error_signal;
-		ds: port controller.speed_output -> drive_sys.speed_input;
-		de: port controller.elevation_output -> drive_sys.elevation_input;	
+		subcomponents
+			ui : device user_interface.impl;
+			controller : system treadmill_controller.impl;
+			network : device network_adapter.impl;
+			safety_cord : device safety_cord.impl;
+			drive_sys: system drive_system.impl;
+			elevation_motor: device elevation_motor;
+		connections
+			uss : port ui.speed_selection -> controller.speed_input;
+			ues : port ui.elevation_selection -> controller.elevation_input;
+			nic_in : port network.network_in -> controller.network_in;
+			nic_out : port controller.network_out -> network.network_out;
+			inet_in : port wan_in -> network.wan_in;
+			inet_out : port network.wan_out -> wan_out;
+			safe_in : port safety_cord.error_signal -> controller.error_signal;
+			dsi: port controller.speed_output -> drive_sys.speed_input;
+			dei: port controller.elevation_output -> elevation_motor.input;
+			dso: port drive_sys.speed_output -> controller.speed_state;
+			deo: port elevation_motor.state -> controller.elevation_state;
 	end treadmill.impl;
 	
 	-- Treadmill Controller
 	system treadmill_controller
-	features
-		speed_input: in data port Speed;
-		elevation_input: in data port Elevation;
-		speed_output: out data port Speed;
-		elevation_output: out data port Elevation;
-		network_in: in data port;
-		network_out: out data port;
-		error_signal: in data port CordPulled;
+		features
+			speed_input: in data port Speed;
+			elevation_input: in data port Elevation;
+			speed_output: out data port Speed;
+			elevation_output: out data port Elevation;
+			speed_state: in data port SensorData;
+			elevation_state: in data port Elevation;
+			network_in: in data port;
+			network_out: out data port;
+			error_signal: in data port CordPulled;
 	end treadmill_controller;
 	
 	system implementation treadmill_controller.impl
-	subcomponents
-		set_speed: process set_speed.impl;
-		set_elevation: process set_elevation.impl;
-	connections
-		css: port speed_input -> set_speed.desired_speed;
-		cse: port elevation_input -> set_elevation.desired_elevation;
-		cos: port set_speed.output_speed -> speed_output;
-		coe: port set_elevation.output_elevation -> elevation_output;
+		subcomponents
+			set_speed: process set_speed.impl;
+			set_elevation: process set_elevation.impl;
+		connections
+			css: port speed_input -> set_speed.desired_speed;
+			cse: port elevation_input -> set_elevation.desired_elevation;
+			cos: port set_speed.output_speed -> speed_output;
+			coe: port set_elevation.output_elevation -> elevation_output;
 	end treadmill_controller.impl;
 	
 	-- (Treadmill Controller) Set speed and elevation processes
 	process set_speed
-	features
-		desired_speed: in data port Speed;
-		output_speed: out data port Speed;
+		features
+			desired_speed: in data port Speed;
+			output_speed: out data port Speed;
 	end set_speed;
 	
 	process implementation set_speed.impl
@@ -128,63 +139,90 @@ public
 	end safety_cord.impl;
 	
 	system drive_system
-	features
-		speed_input: in data port Speed;
-		elevation_input: in data port Elevation;
+		features
+			speed_input: in data port Speed;
+--			elevation_input: in data port Elevation;
+			speed_output: out data port SensorData;
+--			elevation_position: out data port Elevation;
 	end drive_system;
 	
 	system implementation drive_system.impl
-	subcomponents
-		belt_pwm_controller: device DrivePWMController;
-		belt_motor: device DriveMotor;
---		elevation_motor: device ElevationMotor;
---		speed_sensor: device BeltSpeedSensor;
+		subcomponents
+			pwm_controller: device drive_pwm_controller.impl;
+			motor: device drive_motor.impl;
+--			elev_motor: device elevation_motor.impl;
+			speed_sensor: device belt_speed_sensor.impl;
+		connections
+			speed_set : port speed_input -> pwm_controller.speed_input;
+			speed_actual : port speed_sensor.sensor_signal -> speed_output;
+			pwm_set : port pwm_controller.pwm_output -> motor.pwm_input;
 	end drive_system.impl;
 	
---	-- sensor to sense current belt speed
---	device BeltSpeedSensor
+	-- sensor to sense current belt speed
+	device belt_speed_sensor
+		features
+			sensor_signal: out data port SensorData;
+		flows
+			sensor_read: flow source sensor_signal;
+		properties
+			Period => 25 ms;
+			Dispatch_Protocol => Periodic;
+			Latency => 5 ms .. 10 ms applies to sensor_read;
+	end belt_speed_sensor;
+	
+	device implementation belt_speed_sensor.impl
+	end belt_speed_sensor.impl;
+	
+	-- pwm controller for belt motor
+	device drive_pwm_controller
+		features
+			speed_input: in data port Speed;
+			pwm_output: out data port;
+	end drive_pwm_controller;
+	
+	device implementation drive_pwm_controller.impl
+	end drive_pwm_controller.impl;
+	
+	-- drive motor that is high-power with pwm control
+	device drive_motor
+		features
+			pwm_input: in data port;
+	end drive_motor;
+	
+	device implementation drive_motor.impl
+	end drive_motor.impl;
+	
+	-- elevation stepper motor/actuator
+	device elevation_motor
+		features
+			input: in data port Elevation;
+			state: out data port Elevation;
 --		features
---			sensor_signal: out data port SensorData;
+--			SM_Command_Signals: feature group SM_Command_Signals;
+--			Mechanical_Control_Position: out feature; --data port SM_Position.PercentOpen;
 --		flows
---			sensor_read: flow source sensor_signal;
+--			flowsink: flow sink SM_Command_Signals {Latency => 1ms .. 1ms;};
 --		properties
---			Period => 25 ms;
---			Dispatch_Protocol => Periodic;
---			Latency => 5 ms .. 10 ms applies to sensor_read;
---	end BeltSpeedSensor;
---	
-	device DrivePWMController
-		
-	end DrivePWMController;
-
-	device DriveMotor
-		
-	end DriveMotor;
---
---	device ElevationMotor
-----		features
-----			SM_Command_Signals: feature group SM_Command_Signals;
-----			Mechanical_Control_Position: out feature; --data port SM_Position.PercentOpen;
-----		flows
-----			flowsink: flow sink SM_Command_Signals {Latency => 1ms .. 1ms;};
-----		properties
-----			Dispatch_Protocol => Aperiodic;
-----		annex EMV2 {**
-----			use types Treadmill_ErrorTypes;
-----			
-----			error propagations
-----				SM_Command_Signals.SM_Cmd: in propagation {MissingStepCommand, NoCommandSequence, SlowResponse};
-----				SM_Command_Signals.SM_Cmd: not in propagation {DelayedResponse};
-----				SM_Command_Signals.Step_Completion: not out propagation {CompletionSignalOmission};
-----				Mechanical_Control_Position: out propagation {MissedStep, NoSteps, SlowResponse};
-----				Mechanical_Control_Position: not out propagation {DelayedResponse};
-----			flows
-----				EMfailure: error source Mechanical_Control_Position {NoService} when {StepperMotorFailure};
-----				cmdimpact1: error path SM_Command_Signals.SM_Cmd {MissingStepCommand} -> Mechanical_Control_Position {MissedStep};
-----				cmdimpact2: error path SM_Command_Signals.SM_Cmd {NoCommandSequence} -> Mechanical_Control_Position {NoService};
-----				cmdlate1: error path SM_Command_Signals.SM_Cmd {SlowResponse} -> Mechanical_Control_Position {SlowResponse};
-----			end propagations;
-----		**};
---	end ElevationMotor;
+--			Dispatch_Protocol => Aperiodic;
+--		annex EMV2 {**
+--			use types Treadmill_ErrorTypes;
+--			
+--			error propagations
+--				SM_Command_Signals.SM_Cmd: in propagation {MissingStepCommand, NoCommandSequence, SlowResponse};
+--				SM_Command_Signals.SM_Cmd: not in propagation {DelayedResponse};
+--				SM_Command_Signals.Step_Completion: not out propagation {CompletionSignalOmission};
+--				Mechanical_Control_Position: out propagation {MissedStep, NoSteps, SlowResponse};
+--				Mechanical_Control_Position: not out propagation {DelayedResponse};
+--			flows
+--				EMfailure: error source Mechanical_Control_Position {NoService} when {StepperMotorFailure};
+--				cmdimpact1: error path SM_Command_Signals.SM_Cmd {MissingStepCommand} -> Mechanical_Control_Position {MissedStep};
+--				cmdimpact2: error path SM_Command_Signals.SM_Cmd {NoCommandSequence} -> Mechanical_Control_Position {NoService};
+--				cmdlate1: error path SM_Command_Signals.SM_Cmd {SlowResponse} -> Mechanical_Control_Position {SlowResponse};
+--			end propagations;
+--		**};
+	end elevation_motor;
+	
+	device implementation elevation_motor.impl
+	end elevation_motor.impl;
 	
 end Treadmill;

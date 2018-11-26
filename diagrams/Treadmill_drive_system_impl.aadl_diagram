@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="3993090d-b27e-4646-8527-a5bc753ccfbd" manual="true">
+    <element uuid="04dbdfb9-c71f-4cc0-b83a-168c6dd8ad25">
+      <element uuid="fab54b07-d024-4068-9052-6b5ad7731981">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>pwm_set</seg>
+      </bo>
+      <contentFilters/>
+    </element>
+    <element uuid="2e612fe2-c36d-4aad-bc02-a2dba9689fd3">
+      <element uuid="9e6fe1d6-c965-49c8-8841-e5d304ea6358">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>speed_actual</seg>
+      </bo>
+      <contentFilters/>
+    </element>
+    <element uuid="283f6821-f834-4201-9c03-60005262de54">
+      <element uuid="9d7c0fd3-12c2-4266-8978-11ed8fe59783">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>speed_set</seg>
+      </bo>
+      <contentFilters/>
+    </element>
+    <element uuid="696dca13-976f-4786-8e40-c426b3b9eb91" dockArea="left">
+      <bo>
+        <seg>feature</seg>
+        <seg>speed_input</seg>
+      </bo>
+      <position y="120.0"/>
+      <contentFilters/>
+    </element>
+    <element uuid="90a10373-55f6-4b21-b3d8-8dfe5e78f8b0" dockArea="right">
+      <bo>
+        <seg>feature</seg>
+        <seg>speed_output</seg>
+      </bo>
+      <position x="694.0" y="218.0"/>
+      <contentFilters/>
+    </element>
+    <element uuid="53fd0e56-7e98-4fc2-a575-d458b1f68944">
+      <element uuid="13deaa3b-74b0-4662-9a25-44b35adffdc2" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>pwm_input</seg>
+        </bo>
+        <position y="10.0"/>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>motor</seg>
+      </bo>
+      <position x="495.0" y="110.0"/>
+      <size width="271.0" height="60.0"/>
+      <contentFilters>
+        <filter>features</filter>
+        <filter>internalFeatures</filter>
+        <filter>processorFeatures</filter>
+        <filter>connections</filter>
+        <filter>flowSpecifications</filter>
+      </contentFilters>
+    </element>
+    <element uuid="3eb44f1e-e1eb-4d97-b5bc-110bbff3dc21">
+      <element uuid="dccadb30-26d4-477a-b36c-1f15949257a8" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>pwm_output</seg>
+        </bo>
+        <position x="253.0" y="10.0"/>
+        <contentFilters/>
+      </element>
+      <element uuid="c3f00acd-4b44-4b90-b326-c004f8fe1004" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>speed_input</seg>
+        </bo>
+        <position y="10.0"/>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>pwm_controller</seg>
+      </bo>
+      <position x="126.0" y="110.0"/>
+      <size width="349.0" height="60.0"/>
+      <contentFilters>
+        <filter>features</filter>
+        <filter>internalFeatures</filter>
+        <filter>processorFeatures</filter>
+        <filter>connections</filter>
+        <filter>flowSpecifications</filter>
+      </contentFilters>
+    </element>
+    <element uuid="917dbafe-9dc6-4ec5-ae98-0d467e5cb49b">
+      <element uuid="87f7b373-d3c1-4ab2-8184-0381c15b63f8" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>sensor_signal</seg>
+        </bo>
+        <position x="254.0" y="10.0"/>
+        <contentFilters/>
+      </element>
+      <element uuid="5b04a654-0d6c-4a73-8c85-7b90cefb9603">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>sensor_read</seg>
+        </bo>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>speed_sensor</seg>
+      </bo>
+      <position x="228.0" y="208.0"/>
+      <size width="360.0" height="60.0"/>
+      <contentFilters>
+        <filter>features</filter>
+        <filter>internalFeatures</filter>
+        <filter>processorFeatures</filter>
+        <filter>connections</filter>
+        <filter>flowSpecifications</filter>
+      </contentFilters>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>drive_system.impl</seg>
+    </bo>
+    <position x="12.0" y="12.0"/>
+    <size width="798.0" height="288.0"/>
+    <contentFilters>
+      <filter>features</filter>
+      <filter>internalFeatures</filter>
+      <filter>processorFeatures</filter>
+      <filter>connections</filter>
+      <filter>flowSpecifications</filter>
+      <filter>subcomponents</filter>
+    </contentFilters>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>classifier</seg>
+      <seg>treadmill::drive_system.impl</seg>
+    </context>
+  </config>
+</diagram:Diagram>
