@@ -1,3 +1,57 @@
 system requirements UserInterfaceReqs for Treadmill::user_interface [
-	
+	description "System requirements for the User Interface component of the Treadmill."
+	requirement req_ui_1: "Register speed input" [
+		description ""
+		rationale ""
+		see goal goaldoc_1.g1_1_2
+		category Kind.Constraint
+	]
+	requirement req_ui_2: "Decline speed input" [
+		description ""
+		rationale ""
+		see goal goaldoc_1.g1_2
+		category Kind.Safety
+	]
+	requirement req_ui_3: "User-specified speed" [
+		description ""
+		rationale ""
+		see goal goaldoc_1.g1_3
+		category Kind.Guarantee
+	]
+	requirement req_ui_4: "User credentials entry verified" [
+		description ""
+		rationale ""
+		see goal goaldoc_2.g2_3_1
+		category Kind.Guarantee
+	]
+	requirement req_ui_5: "Fetch user identifier with credentials" [
+		description ""
+		rationale ""
+		see goal goaldoc_2.g2_3_2
+		category Kind.Constraint
+	]
+	requirement req_ui_6: "Encourage user registration process" [
+		description ""
+		rationale ""
+		see goal goaldoc_2.g2_3_3
+		category Kind.Constraint
+	]
+	requirement req_ui_7: "Communicate safety instructions before use" [
+		description ""
+		rationale ""
+		see goal goaldoc_3.g3_2_2
+		category Kind.Safety
+	]
+	requirement req_ui_8: "Minimal user interaction possibilities" [
+		description ""
+		rationale ""
+		see goal goaldoc_3.g3_3
+		category Kind.Safety
+	]
+	requirement req_ui_9: "End program on failure" [
+		description ""
+		rationale ""
+		see goal goaldoc_5.g5_1_1
+		category Kind.Safety
+	]
 ]

@@ -1,5 +1,10 @@
 Kind [
-	Assumption	
+	Assumption
+	Consistency
+	Constraint
+	Guarantee
+	Quality
+	Safety
 ]
 
 Type [

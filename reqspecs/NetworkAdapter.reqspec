@@ -1,0 +1,26 @@
+system requirements NetworkAdapter for Treadmill::network_adapter [
+	requirement req_na_1: "Tunnel web connection through safe network" [
+		description ""
+		rationale ""
+		see goal goaldoc_6.g6_1_1_1
+		category Kind.Safety
+	]
+	requirement req_na_2: "Encrypt web connection" [
+		description ""
+		rationale ""
+		see goal goaldoc_6.g6_1_1_2
+		category Kind.Safety
+	]
+	requirement req_na_3: "Establish connection to cloud storage" [
+		description ""
+		rationale ""
+		see goal goaldoc_6.g6_1_2
+		category Kind.Constraint
+	]
+	requirement req_na_4: "Secure data access mechanism" [
+		description ""
+		rationale ""
+		see goal goaldoc_6.g6_2_1
+		category Kind.Safety
+	]
+]

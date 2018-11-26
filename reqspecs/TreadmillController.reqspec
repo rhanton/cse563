@@ -1,3 +1,26 @@
 system requirements TreadmillControllerReqs for Treadmill::treadmill_controller [
-	
+	requirement req_tc_1: "Apply speed settings to belt actuator" [
+		description ""
+		rationale ""
+		see goal goaldoc_1.g1_1_1
+		category Kind.Guarantee
+	]
+	requirement req_tc_2: "Monitoring of training data" [
+		description ""
+		rationale ""
+		see goal goaldoc_2.g2_1
+		category Kind.Constraint
+	]
+	requirement req_tc_3: "Recording of monitored metrics" [
+		description ""
+		rationale ""
+		see goal goaldoc_2.g2_2
+		category Kind.Constraint
+	]
+	requirement req_tc_4: "Initiate reboot procedure" [
+		description ""
+		rationale ""
+		see goal goaldoc_5.g5_2_1
+		category Kind.Safety
+	]
 ]
