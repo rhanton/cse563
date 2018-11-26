@@ -1,8 +1,0 @@
-document g4_goals [
-	goal MinimizedDesignComplexity []
-		goal LowDesignComplexity []
-		goal LowComponentComplexity []
-	goal MinimizedComponentCosts []
-		goal ComponentsOffTheShelf []
-		goal AutomatedComponentTesting []
-]

@@ -1,0 +1,13 @@
+document goaldoc_4 [
+	goal g4: "MinimizedCostOfManufacturing" [
+		description "The cost of manufacturing the exercise treadmill should be kept as low as possible."
+		rationale "The company developing the treadmill wants to make a profit and provide a low-priced product, so manufacturing costs should be minimized to entice customers and maximize margins."
+		stakeholder stakeholders.user1 stakeholders.user2 stakeholders.corp_ceo
+	]
+		goal g4_1: "MinimizedDesignComplexity" []
+			goal g4_1_1: "LowDesignComplexity" []
+			goal g4_1_2: "LowComponentComplexity" []
+		goal g4_2: "MinimizedComponentCosts" []
+			goal g4_2_1: "ComponentsOffTheShelf" []
+			goal g4_2_2: "AutomatedComponentTesting" []
+]

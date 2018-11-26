@@ -1,8 +1,0 @@
-document g2_goals [
-	goal MonitorMetricsFromTraining []
-	goal RecordFromMonitoredMetrics []
-	goal UserUniquelyIdentified []
-		goal UserCredentialsCorrectlyEntered []
-		goal UserIdentifierQueried []
-		goal UserRegistrationEncouraged []
-]

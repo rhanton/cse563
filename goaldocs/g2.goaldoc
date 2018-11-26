@@ -1,0 +1,13 @@
+document goaldoc_2: "Stakeholder goals G2"[
+	goal g2: "TrackAndRecordUserDataFromTraining" [
+		description "The treadmill should be able to track and record data about each use for later review."
+		rationale "A major functionality being added to the treadmill system is the ability to record session data for later review."
+		stakeholder stakeholders.user1 stakeholders.user2
+	]
+		goal g2_1: "MonitorMetricsFromTraining" []
+		goal g2_2: "RecordFromMonitoredMetrics" []
+		goal g2_3: "UserUniquelyIdentified" []
+			goal g2_3_1: "UserCredentialsCorrectlyEntered" []
+			goal g2_3_2: "UserIdentifierQueried" []
+			goal g2_3_3: "UserRegistrationEncouraged" []
+]

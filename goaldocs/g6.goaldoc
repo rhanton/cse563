@@ -1,0 +1,16 @@
+document goaldoc_6 [
+	goal g6: "UserDataConfidential" [
+		description "The treadmill should ensure that data collected by it is anonymized and kept confidential."
+		rationale "The safety of data is critical in an internet-connected environment. Because data is stored in the cloud, internet security standards require that it be encrypted in-transit and at-rest."
+		stakeholder stakeholders.corp_security stakeholders.corp_ceo
+	]
+		goal g6_1: "SafeWebConnectionToCloudStorage" []
+			goal g6_1_1: "SafeWebConnection" []
+				goal g6_1_1_1: "SecurelyTunneledWebConnection" []
+				goal g6_1_1_2: "EncryptedWebConnection" []
+			goal g6_1_2: "ConnectionToCloudStorage" []
+		goal g6_2: "SecuredUserDataStorage" []
+			goal g6_2_1: "SafeDataAccess" []
+			goal g6_2_2: "EncryptedUserData" []
+		goal g6_3: "AnonymizedUserTrainingData" []
+]
