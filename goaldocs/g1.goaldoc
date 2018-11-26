@@ -1,5 +1,4 @@
 document goaldoc_1: "Stakeholder goals G1" [
-	//description "The stakeholder goals in this section refer to the goal g1."
 	goal g1 : "StartAndOperateAtDesiredSpeed" [
 		description "The User should be able to start and operate the treadmill at a speed of his or her choosing."
 		rationale "The core functionality of the treadmill is an ability to move the belt at a given speed. The user wishes to choose this speed as-desired."
@@ -37,3 +36,4 @@ document goaldoc_1: "Stakeholder goals G1" [
 			category Type.Achieve
 		]
 ]
+

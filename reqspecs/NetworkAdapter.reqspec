@@ -1,5 +1,5 @@
 system requirements NetworkAdapter for Treadmill::network_adapter 
-use constants authors
+use constants treadmillConstant
 [
 	description "System requirements for the Network Adapter component of the Treadmill."
 	requirement req_na_1: "Tunnel web connection through safe network" [
