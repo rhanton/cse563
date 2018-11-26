@@ -7,7 +7,7 @@ public
 	
 	system treadmill
 		features
-			-- network I/O
+			-- external network I/O
 			wan_in: in data port;
 			wan_out: out data port;
 	end treadmill;
