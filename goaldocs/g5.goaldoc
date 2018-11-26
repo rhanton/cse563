@@ -1,0 +1,44 @@
+document goaldoc_5 [
+	goal g5: "SafeStateOnFailure" [
+		description "The treadmill should transition into a safe state if a failure in any component should occur."
+		rationale "The treadmill system should not pose a hazard to the user or others in the vicinity after a component failure has occurred."
+		stakeholder stakeholders.corp_safety
+		category Type.Maintain
+	]
+		goal g5_1: "MechanicSafeStateComponents" [
+			description ""
+			rationale ""
+			refines g5
+			category Type.Achieve
+		]
+			goal g5_1_1: "EndProgram" [
+				description ""
+				rationale ""
+				refines g5_1
+				category Type.Achieve
+			]
+			goal g5_1_2: "EmergencyStop" [
+				description ""
+				rationale ""
+				refines g5_1 g5_2
+				category Type.Achieve
+			]
+			goal g5_1_3: "MechanicSafeStateComponentsAssumption" [
+				description ""
+				rationale ""
+				refines g5_1
+				category Kind.Assumption
+			]
+		goal g5_2: "SoftwareSafeState" [
+			description ""
+			rationale ""
+			refines g5
+			category Type.Achieve
+		]
+			goal g5_2_1: "RebootProcedureInitiated" [
+				description ""
+				rationale ""
+				refines g5_2
+				category Type.Achieve
+			]
+]

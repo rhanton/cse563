@@ -22,12 +22,12 @@ stakeholder corp_security [
 	email "jeff@treadmillcorp.com"
 	supervisor corp_ceo
 ]
-stakeholder user1 [
+stakeholder user_professional [
 	full name "John Doe"
 	description "John is a treadmill user that primarily uses the treadmill for marathon training."
 	email "john.doe@gmail.com"
 ]
-stakeholder user2 [
+stakeholder user_hobby [
 	full name "Jane Doe"
 	description "Jane is a treadmill user that walks on the treadmill every day for exercise."
 	email "jane.doe@gmail.com"

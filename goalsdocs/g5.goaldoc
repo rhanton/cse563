@@ -1,8 +1,0 @@
-document g5_goals [
-	goal MechanicSafeStateComponents []
-		goal EndProgram []
-		goal EmergencyStop []
-	goal SoftwareSafeState []
-		goal RebootProcedureInitiated []
-	//Assumption is missing
-]

@@ -1,9 +1,0 @@
-document g3_goals [
-	goal SeamlessChangesInThreadmillOperations []
-		goal MinimizedSpeedDisturbance []
-		goal MinimizedElevationDisturbance []
-	goal MinimizedFallingRisk []
-		goal SpeedAndElevationWithinBoundaries []
-		goal CommunicateSafetyInstructions []
-	goal MinimizedUserInteractionDuringTraining []
-]

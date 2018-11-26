@@ -1,0 +1,51 @@
+document goaldoc_3 : "Stakeholder goals G3" [
+	goal g3: "SafetyDuringOperationChanges" [
+		description "The treadmill should keep the user in a safe state as the user makes speed and elevation adjustments and changes."
+		rationale "It is safety-critical for the human user to be kept safe as the treadmill changes its physical configuration."
+		stakeholder stakeholders.corp_safety
+		category Type.Achieve
+	]
+		goal g3_1: "SeamlessChangesInThreadmillOperations" [
+			description ""
+			rationale ""
+			refines g3
+			category Type.Achieve
+		]
+			goal g3_1_1: "MinimizedSpeedDisturbance" [
+				description ""
+				rationale ""
+				refines g3_1
+				category Type.Soft
+			]
+			goal g3_1_2: "MinimizedElevationDisturbance" [
+				description ""
+				rationale ""
+				refines g3_1
+				category Type.Soft
+			]
+		goal g3_2: "MinimizedFallingRisk" [
+			description ""
+			rationale ""
+			refines g3
+			category Type.Soft
+		]
+			goal g3_2_1: "SpeedAndElevationWithinBoundaries" [
+				description ""
+				rationale ""
+				refines g3_2
+				category Type.Achieve
+			]
+			goal g3_2_2: "CommunicateSafetyInstructions" [
+				description ""
+				rationale ""
+				refines g3_2
+				category Type.Soft
+			]
+		goal g3_3: "MinimizedUserInteractionDuringTraining" [
+			description ""
+			rationale ""
+			refines g3
+			conflicts with goaldoc_1.g1_3
+			category Type.Soft
+		]
+]
