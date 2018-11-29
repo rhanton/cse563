@@ -9,11 +9,16 @@ use constants treadmillConstant
 	]
 	requirement req_na_2: "Encrypt web connection" for network_out [
 		description "The traffic of the web connection must be encrypted before being sent by the network adapter."
+		val mechanism = "AES256"
+		value predicate mechanism == encryptionMechanism
 		see goal goaldoc_6.g6_1_1_2
 		category Kind.Safety
 	]
 	requirement req_na_3: "Establish connection to external services" [
 		description "The network adapter established connection to known external services."
+		val maxLatency = 50ms
+		compute currentLatency : Time
+		value predicate currentLatency < maxLatency
 		see goal goaldoc_6.g6_1_2
 		category Kind.Constraint
 	]
