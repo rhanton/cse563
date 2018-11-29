@@ -66,17 +66,41 @@ public
 		subcomponents
 			set_speed: process set_speed.impl;
 			set_elevation: process set_elevation.impl;
+			monitor_treadmill: process monitor.impl;
+			render_screen: process rendering.impl;
+			networking: process networking.impl;
+			cpu: processor cpu;
 		connections
 			css: port speed_input -> set_speed.desired_speed;
+			ccs: port speed_state -> set_speed.current_speed;
+			csm: port speed_state -> monitor_treadmill.current_speed;
 			cse: port elevation_input -> set_elevation.desired_elevation;
+			cce: port elevation_state -> set_elevation.current_elevation;
+			cem: port elevation_state -> monitor_treadmill.current_elevation;
 			cos: port set_speed.output_speed -> speed_output;
 			coe: port set_elevation.output_elevation -> elevation_output;
+			cerr: port error_signal -> monitor_treadmill.error_signal;
+			dispState: port monitor_treadmill.state_data -> render_screen.state;
+			dispOut: port render_screen.output -> display_data;
+			nin: port network_in -> networking.network_in;
+			nout: port networking.network_out -> network_out;
+			nup: port monitor_treadmill.state_data -> networking.upload_data;
+			ndown: port networking.download_data -> render_screen.historical;
+		properties
+			Allowed_Processor_Binding => (reference (cpu)) applies to set_speed; 
+			Allowed_Processor_Binding => (reference (cpu)) applies to set_elevation; 
 	end treadmill_controller.impl;
+	
+	processor cpu
+		properties
+			Scheduling_Protocol => (RMS);
+	end cpu;
 	
 	-- (Treadmill Controller) Set speed and elevation processes
 	process set_speed
 		features
 			desired_speed: in data port Speed;
+			current_speed: in data port SensorData;
 			output_speed: out data port Speed;
 	end set_speed;
 	
@@ -85,12 +109,14 @@ public
 			manage_speed_change: thread manage_speed_change.impl;
 		connections
 			ssds: port desired_speed -> manage_speed_change.desired_speed;
+			sscs: port current_speed -> manage_speed_change.current_speed;
 			ssos: port manage_speed_change.output_speed -> output_speed;
 	end set_speed.impl;
 	
 	process set_elevation
 	features
 		desired_elevation: in data port Elevation;
+		current_elevation: in data port Elevation;
 		output_elevation: out data port Elevation;
 	end set_elevation;
 	
@@ -99,6 +125,7 @@ public
 			manage_elevation_change: thread manage_elevation_change.impl;
 		connections
 			sede: port desired_elevation -> manage_elevation_change.desired_elevation;
+			sece: port current_elevation -> manage_elevation_change.current_elevation;
 			seoe: port manage_elevation_change.output_elevation -> output_elevation;
 	end set_elevation.impl;
 	
@@ -106,7 +133,10 @@ public
 	thread manage_speed_change
 		features
 			desired_speed: in data port Speed;
+			current_speed: in data port SensorData;
 			output_speed: out data port Speed;
+		properties
+			Dispatch_Protocol => Aperiodic;
 	end manage_speed_change;
 	
 	thread implementation manage_speed_change.impl
@@ -115,11 +145,125 @@ public
 	thread manage_elevation_change
 		features
 			desired_elevation: in data port Elevation;
+			current_elevation: in data port Elevation;
 			output_elevation: out data port Elevation;
+		properties
+			Dispatch_Protocol => Aperiodic;
 	end manage_elevation_change;
 	
 	thread implementation manage_elevation_change.impl
 	end manage_elevation_change.impl;
+
+	-- (Treadmill Controller) Monitoring process
+	process monitor
+		features
+			current_speed: in data port SensorData;
+			current_elevation: in data port Elevation;
+			error_signal: in data port CordPulled;
+			state_data: out data port TreadmillState;
+	end monitor;
+	
+	process implementation monitor.impl
+		subcomponents
+			monitor_state: thread monitor_state.impl;
+		connections
+			mcs: port current_speed -> monitor_state.current_speed;
+			mce: port current_elevation -> monitor_state.current_elevation;
+			merr: port error_signal -> monitor_state.error_signal;
+			mout: port monitor_state.output -> state_data;
+	end monitor.impl;
+	
+	-- (Treadmill Controller) Monitoring thread
+	thread monitor_state
+		features
+			current_speed: in data port SensorData;
+			current_elevation: in data port Elevation;
+			error_signal: in data port CordPulled;
+			output: out data port TreadmillState;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period            => 200 ms;
+			Priority          => 2;
+	end monitor_state;
+	
+	thread implementation monitor_state.impl
+	end monitor_state.impl;
+	
+	-- (Treadmill Controller) Display rendering process
+	process rendering
+		features
+			state: in data port TreadmillState;
+			historical: in data port TreadmillState;
+			output: out data port ScreenVisualData;
+	end rendering;
+	
+	process implementation rendering.impl
+		subcomponents
+			render_thread: thread rendering_thread.impl;
+		connections
+			rin: port state -> render_thread.state;
+			rout: port render_thread.output -> output;
+			rhist: port historical -> render_thread.history;
+	end rendering.impl;
+	
+	thread rendering_thread
+		features
+			state: in data port TreadmillState;
+			history: in data port TreadmillState;
+			output: out data port ScreenVisualData;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period            => 17 ms;
+			Priority          => 3;
+	end rendering_thread;
+	
+	thread implementation rendering_thread.impl
+	end rendering_thread.impl;
+	
+	-- (Treadmill Controller) Record & Metrics Treadmill Process
+	process networking
+		features
+			upload_data: in data port TreadmillState;
+			download_data: out data port TreadmillState;
+			network_in: in data port;
+			network_out: out data port;
+	end networking;
+	
+	process implementation networking.impl
+		subcomponents
+			recording: thread recording_thread.impl;
+			metrics: thread metrics_thread.impl;
+		connections
+			rec_state: port upload_data -> recording.state;
+			rec_out: port recording.network_out -> network_out;
+			met_in: port network_in -> metrics.network_in;
+			met_state: port metrics.recorded_state -> download_data;
+	end networking.impl;
+	
+	thread recording_thread
+		features
+			state: in data port TreadmillState;
+			network_out: out data port;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period            => 10 ms;
+			Priority          => 2;
+	end recording_thread;
+	
+	thread implementation recording_thread.impl
+	end recording_thread.impl;
+	
+	thread metrics_thread
+		features
+			network_in: in data port;
+			recorded_state: out data port TreadmillState;
+		properties
+			Dispatch_Protocol => Aperiodic;
+			Priority          => 4;
+	end metrics_thread;
+	
+	thread implementation metrics_thread.impl
+	end metrics_thread.impl;
 
 	-- User Interface
 	device user_interface

@@ -36,6 +36,14 @@ public
 			Data_Model::Measurement_Unit => "1/10 Percent";
 	end Elevation;
 	
+	-- type containing both speed and elevation data
+	data TreadmillState
+		properties
+			Data_Model::Data_Representation => Struct;
+  			Data_Model::Element_Names => ("speed","elevation");
+  			Data_Model::Base_Type => (classifier (Treadmill_DataTypes::Speed), classifier (Treadmill_DataTypes::Elevation));
+	end TreadmillState;
+	
 	data CordPulled extends base_types::Boolean
 	end CordPulled;
 	
