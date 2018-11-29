@@ -1,4 +1,4 @@
-document goaldoc_3 : "Stakeholder goals G3" [
+document goaldoc_3: "Stakeholder goals G3" [
 	goal g3: "SafetyDuringOperationChanges" [
 		description "The treadmill should keep the user in a safe state as the user makes speed and elevation adjustments and changes."
 		rationale "It is safety-critical for the human user to be kept safe as the treadmill changes its physical configuration."
@@ -6,44 +6,44 @@ document goaldoc_3 : "Stakeholder goals G3" [
 		category Type.Achieve
 	]
 		goal g3_1: "SeamlessChangesInThreadmillOperations" [
-			description ""
-			rationale ""
+			description "The system shall make operational changes seamless."
+			rationale "An operational change without any noticeable effects allows for more safety during training sessions."
 			refines g3
 			category Type.Achieve
 		]
-			goal g3_1_1: "MinimizedSpeedDisturbance" [
-				description ""
-				rationale ""
+			goal g3_1_1: "MinimizedSpeedDisturbance While SpeedChange" [
+				description "The system shall minimized the disturbance during speed changes."
+				rationale "The speed must change in such a fine way that it feels seamless for the user."
 				refines g3_1
 				category Type.Soft
 			]
-			goal g3_1_2: "MinimizedElevationDisturbance" [
-				description ""
-				rationale ""
+			goal g3_1_2: "MinimizedElevationDisturbance While ElevationChange" [
+				description "The system shall minimize the disturbance during elevation changes."
+				rationale "The elevation must change in such a fine way that it feels seamless for the user."
 				refines g3_1
 				category Type.Soft
 			]
 		goal g3_2: "MinimizedFallingRisk" [
-			description ""
-			rationale ""
+			description "The system shall ensure that the probability of falling and potential damage from falling are as small as possible."
+			rationale "The risk comprises probability and potential damage which have a major impact on the user safety."
 			refines g3
 			category Type.Soft
 		]
 			goal g3_2_1: "SpeedAndElevationWithinBoundaries" [
-				description ""
-				rationale ""
+				description "The system shall assure that speed and elevation parameters are always within predefined boundaries."
+				rationale "The predefined speed and elevation are optimized for maximum safety."
 				refines g3_2
 				category Type.Achieve
 			]
 			goal g3_2_2: "CommunicateSafetyInstructions" [
-				description ""
-				rationale ""
+				description "The system shall give instructions for the safest use of the treadmill."
+				rationale "The most important instructions on how to use the treadmill must be communicated to keep the user safe."
 				refines g3_2
 				category Type.Soft
 			]
 		goal g3_3: "MinimizedUserInteractionDuringTraining" [
-			description ""
-			rationale ""
+			description "The system shall keep the user interaction during trainings at a minimum level."
+			rationale "Every user interaction during training distracts the user and might increase the risk of falling."
 			refines g3
 			conflicts with goaldoc_1.g1_3
 			category Type.Soft

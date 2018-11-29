@@ -1,0 +1,10 @@
+global requirements GlobalReq 
+use constants treadmillConstant [
+	requirement globalreq_1: "Important components are connected redundantly" [
+		description "The core components must have redundant physical connections. The MTBF should be " MTBF
+		rationale "Connection redundancy is a way to decrease the risk of disconnection during operations due to mechanical or electrical failures. Between two components there must exist an alternative path."
+		category Kind.Safety
+		development stakeholder stakeholders.corp_safety
+	]
+]
+

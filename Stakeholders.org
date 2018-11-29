@@ -1,5 +1,4 @@
 // CSE 563 project by Arif Cerit & Rick Hanton
-
 organization stakeholders
 stakeholder corp_ceo [
 	full name "Joe Bob"

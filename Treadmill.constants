@@ -1,0 +1,5 @@
+constants treadmillConstant [
+	val encryptionMechanism = "AES256"
+	val operationMode = "Eco"
+	val MTBF = 10000 hr
+]

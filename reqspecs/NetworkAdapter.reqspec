@@ -1,25 +1,29 @@
-system requirements NetworkAdapter for Treadmill::network_adapter [
+system requirements NetworkAdapter for Treadmill::network_adapter 
+use constants treadmillConstant
+[
+	description "System requirements for the Network Adapter component of the Treadmill."
 	requirement req_na_1: "Tunnel web connection through safe network" [
-		description ""
-		rationale ""
+		description "The web connection established by the network adapter must be led through a secured network."
 		see goal goaldoc_6.g6_1_1_1
 		category Kind.Safety
 	]
-	requirement req_na_2: "Encrypt web connection" [
-		description ""
-		rationale ""
+	requirement req_na_2: "Encrypt web connection" for network_out [
+		description "The traffic of the web connection must be encrypted before being sent by the network adapter."
+		val mechanism = "AES256"
+		value predicate mechanism == encryptionMechanism
 		see goal goaldoc_6.g6_1_1_2
 		category Kind.Safety
 	]
-	requirement req_na_3: "Establish connection to cloud storage" [
-		description ""
-		rationale ""
+	requirement req_na_3: "Establish connection to external services" [
+		description "The network adapter established connection to known external services."
+		val maxLatency = 50ms
+		compute currentLatency : Time
+		value predicate currentLatency < maxLatency
 		see goal goaldoc_6.g6_1_2
 		category Kind.Constraint
 	]
 	requirement req_na_4: "Secure data access mechanism" [
-		description ""
-		rationale ""
+		description "The network adapter provides a secure data access to the user data storage."
 		see goal goaldoc_6.g6_2_1
 		category Kind.Safety
 	]
