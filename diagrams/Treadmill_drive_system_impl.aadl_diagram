@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="ASCII"?>
 <diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
   <element uuid="3993090d-b27e-4646-8527-a5bc753ccfbd" manual="true">
+    <element uuid="dc01b223-de6d-4806-8756-f2591a987825">
+      <element uuid="f9067b93-754d-4457-a6ab-63df76ec8178">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>beltbus1</seg>
+      </bo>
+      <contentFilters/>
+    </element>
+    <element uuid="4f842c4e-d789-4d78-95f7-443e70e0ec77">
+      <element uuid="d25d947f-8104-451a-9b46-912eeaeaacb1">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+        <contentFilters/>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>beltbus2</seg>
+      </bo>
+      <bendpoints>
+        <point x="139.0" y="142.0"/>
+        <point x="139.0" y="273.0"/>
+      </bendpoints>
+      <contentFilters/>
+    </element>
     <element uuid="4c5078e2-5981-48f6-a84a-7fe17264cb40">
       <element uuid="8814898c-fed2-4fa5-9cee-ac09409793ed">
         <bo>
@@ -14,8 +46,8 @@
         <seg>pbaccess1</seg>
       </bo>
       <bendpoints>
-        <point x="129.0" y="170.0"/>
-        <point x="129.0" y="142.0"/>
+        <point x="129.0" y="220.0"/>
+        <point x="129.0" y="192.0"/>
       </bendpoints>
       <contentFilters/>
     </element>
@@ -32,8 +64,8 @@
         <seg>pbaccess2</seg>
       </bo>
       <bendpoints>
-        <point x="509.0" y="170.0"/>
-        <point x="509.0" y="167.0"/>
+        <point x="519.0" y="220.0"/>
+        <point x="519.0" y="192.0"/>
       </bendpoints>
       <contentFilters/>
     </element>
@@ -50,8 +82,8 @@
         <seg>pbaccess3</seg>
       </bo>
       <bendpoints>
-        <point x="129.0" y="170.0"/>
-        <point x="129.0" y="223.0"/>
+        <point x="129.0" y="220.0"/>
+        <point x="129.0" y="323.0"/>
       </bendpoints>
       <contentFilters/>
     </element>
@@ -97,12 +129,20 @@
       </bo>
       <contentFilters/>
     </element>
+    <element uuid="27b0e449-39a3-41e4-8b8d-0d8fad9159d5" dockArea="left">
+      <bo>
+        <seg>feature</seg>
+        <seg>belt_bus</seg>
+      </bo>
+      <position y="98.0"/>
+      <contentFilters/>
+    </element>
     <element uuid="f1a8b3f8-9fe5-447e-b77c-90e18a12df38" dockArea="left">
       <bo>
         <seg>feature</seg>
         <seg>power_bus</seg>
       </bo>
-      <position y="126.0"/>
+      <position y="176.0"/>
       <contentFilters/>
     </element>
     <element uuid="696dca13-976f-4786-8e40-c426b3b9eb91" dockArea="left">
@@ -118,7 +158,7 @@
         <seg>feature</seg>
         <seg>speed_output</seg>
       </bo>
-      <position x="790.0" y="179.0"/>
+      <position x="800.0" y="254.0"/>
       <contentFilters/>
     </element>
     <element uuid="53fd0e56-7e98-4fc2-a575-d458b1f68944">
@@ -142,7 +182,7 @@
         <seg>subcomponent</seg>
         <seg>motor</seg>
       </bo>
-      <position x="507.0" y="63.0"/>
+      <position x="517.0" y="88.0"/>
       <size width="271.0" height="110.0"/>
       <contentFilters>
         <filter>features</filter>
@@ -153,12 +193,20 @@
       </contentFilters>
     </element>
     <element uuid="3eb44f1e-e1eb-4d97-b5bc-110bbff3dc21">
+      <element uuid="94c0a118-1acf-4222-b29b-d67a2d068696" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>belt_bus</seg>
+        </bo>
+        <position y="60.0"/>
+        <contentFilters/>
+      </element>
       <element uuid="bc6ea62c-142d-483f-ae79-ee46f40e4eb2" dockArea="left">
         <bo>
           <seg>feature</seg>
           <seg>power</seg>
         </bo>
-        <position y="60.0"/>
+        <position y="110.0"/>
         <contentFilters/>
       </element>
       <element uuid="dccadb30-26d4-477a-b36c-1f15949257a8" dockArea="right">
@@ -166,7 +214,7 @@
           <seg>feature</seg>
           <seg>pwm_output</seg>
         </bo>
-        <position x="253.0" y="35.0"/>
+        <position x="253.0" y="60.0"/>
         <contentFilters/>
       </element>
       <element uuid="c3f00acd-4b44-4b90-b326-c004f8fe1004" dockArea="left">
@@ -181,8 +229,8 @@
         <seg>subcomponent</seg>
         <seg>pwm_controller</seg>
       </bo>
-      <position x="131.0" y="38.0"/>
-      <size width="349.0" height="110.0"/>
+      <position x="140.0" y="38.0"/>
+      <size width="349.0" height="160.0"/>
       <contentFilters>
         <filter>features</filter>
         <filter>internalFeatures</filter>
@@ -192,12 +240,20 @@
       </contentFilters>
     </element>
     <element uuid="917dbafe-9dc6-4ec5-ae98-0d467e5cb49b">
+      <element uuid="e42abd8c-9f8c-4a11-adc9-d63d9f5dd070" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>belt_bus</seg>
+        </bo>
+        <position y="10.0"/>
+        <contentFilters/>
+      </element>
       <element uuid="76b77463-958d-498c-897f-0bd3edaa476e" dockArea="left">
         <bo>
           <seg>feature</seg>
           <seg>power</seg>
         </bo>
-        <position y="10.0"/>
+        <position y="60.0"/>
         <contentFilters/>
       </element>
       <element uuid="87f7b373-d3c1-4ab2-8184-0381c15b63f8" dockArea="right">
@@ -205,7 +261,7 @@
           <seg>feature</seg>
           <seg>sensor_signal</seg>
         </bo>
-        <position x="254.0" y="10.0"/>
+        <position x="254.0" y="35.0"/>
         <contentFilters/>
       </element>
       <element uuid="5b04a654-0d6c-4a73-8c85-7b90cefb9603">
@@ -219,8 +275,8 @@
         <seg>subcomponent</seg>
         <seg>speed_sensor</seg>
       </bo>
-      <position x="127.0" y="169.0"/>
-      <size width="360.0" height="60.0"/>
+      <position x="137.0" y="219.0"/>
+      <size width="360.0" height="110.0"/>
       <contentFilters>
         <filter>features</filter>
         <filter>internalFeatures</filter>
@@ -234,7 +290,7 @@
       <seg>drive_system.impl</seg>
     </bo>
     <position x="12.0" y="12.0"/>
-    <size width="894.0" height="241.0"/>
+    <size width="904.0" height="341.0"/>
     <contentFilters>
       <filter>features</filter>
       <filter>internalFeatures</filter>

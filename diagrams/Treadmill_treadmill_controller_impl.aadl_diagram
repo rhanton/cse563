@@ -235,6 +235,14 @@
       </bendpoints>
       <contentFilters/>
     </element>
+    <element uuid="56521587-47c5-4607-8da8-00ee04a722fd" dockArea="left">
+      <bo>
+        <seg>feature</seg>
+        <seg>belt_bus</seg>
+      </bo>
+      <position y="471.0"/>
+      <contentFilters/>
+    </element>
     <element uuid="a9a40c6f-a115-499b-8db4-5d538b158af2" dockArea="right">
       <bo>
         <seg>feature</seg>
@@ -296,7 +304,7 @@
         <seg>feature</seg>
         <seg>power_12v</seg>
       </bo>
-      <position y="471.0"/>
+      <position y="523.0"/>
       <contentFilters/>
     </element>
     <element uuid="3361dff7-30f8-4f81-94a3-fcef653728c8" dockArea="left">
@@ -321,6 +329,14 @@
         <seg>speed_state</seg>
       </bo>
       <position y="179.0"/>
+      <contentFilters/>
+    </element>
+    <element uuid="61328270-324e-4713-85b2-da89f80ecdfd" dockArea="left">
+      <bo>
+        <seg>feature</seg>
+        <seg>ui_bus</seg>
+      </bo>
+      <position y="575.0"/>
       <contentFilters/>
     </element>
     <element uuid="9668c05f-e014-4c54-bf78-294aa65aa50d">
@@ -554,7 +570,7 @@
       <seg>treadmill_controller.impl</seg>
     </bo>
     <position x="12.0" y="12.0"/>
-    <size width="1441.0" height="523.0"/>
+    <size width="1441.0" height="627.0"/>
     <contentFilters>
       <filter>features</filter>
       <filter>internalFeatures</filter>

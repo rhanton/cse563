@@ -4,15 +4,6 @@ package Treadmill_PowerSupply
 public
 	-- Power Supply provides power to various components through a power bus
 	bus Power_Supply
-		annex EMV2 {**
-			use types Treadmill_ErrorTypes;
-			
-			error propagations
-				access: out propagation {PowerLoss};
-			flows
-				powerfail: error source access {PowerLoss} when {PowerFailure};
-			end propagations;
-		**};
 	end Power_Supply;
 
 	bus implementation Power_Supply.Volt120
